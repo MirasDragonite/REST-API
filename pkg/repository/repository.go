@@ -1,5 +1,7 @@
 package repository
 
+import "database/sql"
+
 type Authorization interface{}
 
 type ToDoList interface{}
@@ -12,6 +14,6 @@ type Repository struct {
 	ToDoList
 }
 
-func NewRepository() *Repository {
+func NewRepository(db *sql.DB) *Repository {
 	return &Repository{}
 }
