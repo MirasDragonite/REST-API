@@ -1,8 +1,13 @@
 package service
 
-import "rest/pkg/repository"
+import (
+	structs "rest"
+	"rest/pkg/repository"
+)
 
-type Authorization interface{}
+type Authorization interface {
+	CreateUser(user structs.User) (int, error)
+}
 
 type ToDoList interface{}
 
@@ -15,5 +20,5 @@ type Serivce struct {
 }
 
 func NewService(repo *repository.Repository) *Serivce {
-	return &Serivce{}
+	return &Serivce{Authorization: NewAuthService(repo.Authorization)}
 }

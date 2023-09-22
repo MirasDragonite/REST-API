@@ -1,8 +1,14 @@
 package repository
 
-import "database/sql"
+import (
+	"database/sql"
 
-type Authorization interface{}
+	structs "rest"
+)
+
+type Authorization interface {
+	CreateUser(user structs.User) (int, error)
+}
 
 type ToDoList interface{}
 
@@ -15,5 +21,7 @@ type Repository struct {
 }
 
 func NewRepository(db *sql.DB) *Repository {
-	return &Repository{}
+	return &Repository{
+		Authorization: NewAuthPost(db),
+	}
 }
