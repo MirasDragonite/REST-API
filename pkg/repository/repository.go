@@ -8,6 +8,7 @@ import (
 
 type Authorization interface {
 	CreateUser(user structs.User) (int, error)
+	GetUser(username, password string) (structs.User, error)
 }
 
 type ToDoList interface{}
