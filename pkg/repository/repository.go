@@ -11,7 +11,10 @@ type Authorization interface {
 	GetUser(username, password string) (structs.User, error)
 }
 
-type ToDoList interface{}
+type ToDoList interface {
+	Create(userId int, list structs.TodoList) (int, error)
+	GetAll(userId int) ([]structs.TodoList, error)
+}
 
 type ToDoItem interface{}
 
@@ -24,5 +27,6 @@ type Repository struct {
 func NewRepository(db *sql.DB) *Repository {
 	return &Repository{
 		Authorization: NewAuthPost(db),
+		ToDoList:      NewToDoListPost(db),
 	}
 }
